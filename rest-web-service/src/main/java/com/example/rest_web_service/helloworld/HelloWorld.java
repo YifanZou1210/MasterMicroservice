@@ -1,9 +1,6 @@
 package com.example.rest_web_service.helloworld;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 // @ResponseBody + @Controller
 // 1. 该controller中所有方法return都应该直接作为http response body发送给client而不是解析为View
@@ -21,5 +18,11 @@ public class HelloWorld {
     @GetMapping("/hello-world-bean")
     public String helloWorldBean(){
         return new HelloWorldBean("hello-world").toString();
+    }
+
+    @GetMapping(path = "/hello-world/{name}")
+    public String helloWorldPathVariable(@PathVariable String name){
+        // @PathVariable自动从url path中获取variable传入controller方法中作为参数处理
+        return new HelloWorldBean(name).toString();
     }
 }
