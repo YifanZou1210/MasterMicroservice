@@ -5,11 +5,11 @@
     <option name="tags">
       <list>
         <CustomTag>
-          <option name="color" value="#FF2D00" />
+          <option name="color" value="#CF5555" />
           <option name="type" value="!" />
         </CustomTag>
         <CustomTag>
-          <option name="color" value="#3498DB" />
+          <option name="color" value="#72A2C3" />
           <option name="type" value="?" />
         </CustomTag>
         <CustomTag>
@@ -18,11 +18,11 @@
           <option name="type" value="//" />
         </CustomTag>
         <CustomTag>
-          <option name="color" value="#FF8C00" />
+          <option name="color" value="#ECED96" />
           <option name="type" value="todo" />
         </CustomTag>
         <CustomTag>
-          <option name="color" value="#98C379" />
+          <option name="color" value="#6A8358" />
           <option name="type" value="*" />
         </CustomTag>
       </list>

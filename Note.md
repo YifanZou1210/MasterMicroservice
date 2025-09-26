@@ -33,7 +33,6 @@ public @interface RestController {
 - 自动序列化: @ResponseBody 注解发挥作用，Spring 会使用内置的消息转换器（Message Converters，例如 Jackson 库）将你返回的 Java 对象自动转换为 JSON 字符串。
 - 响应返回: 这个 JSON 字符串被作为 HTTP 响应体，连同 Content-Type: application/json 头信息一起返回给客户端。
 
-
 ## 2. DispatcherServlet
 
 `DispatcherServlet` 是 Spring MVC 的核心，它扮演着整个请求处理流程中的“前端控制器”（Front Controller）角色，负责接收所有请求并将其分发到正确的处理器。
@@ -398,7 +397,9 @@ public ResponseEntity<User> createUser(@RequestBody User user) {
 3. **实践经验**：
    在企业项目里，这几乎是 Spring REST Controller 中 `POST` 的标准套路。
 
+
 ## 8. Exception
+
 ### 8.1 默认super(父函数)目的
 
 #### 1. 总结
@@ -1028,7 +1029,7 @@ public int divide() {
 
 - 控制器层 → 全局异常处理器统一捕获。
 
-#### 1. 为什么底层用 **checked 向上抛出**
+#### 3. 为什么底层用 **checked 向上抛出**
 
 1. **底层面对外部世界**：文件、网络、数据库，错误是常见的（文件不存在、网络断开、数据库超时）。
 2. **底层没能力决定业务语义**：DAO 碰到 `SQLException`，它不知道是要提示“订单不存在”还是“系统维护中”。
@@ -1045,7 +1046,7 @@ public User findUserById(Long id) throws SQLException {
 
 ---
 
-#### 2. 为什么 Service 层要 **包装成 unchecked + 自定义**
+#### 4. 为什么 Service 层要 **包装成 unchecked + 自定义**
 
 1. **语义转换**：DAO 抛的是技术细节（SQLException），业务要抛的是“用户不存在”这种业务语义。
 2. **为什么用 unchecked**：
@@ -1066,7 +1067,7 @@ public User getUser(Long id) {
 
 ---
 
-#### 3. 什么时候 try-catch，什么时候 throws？
+#### 5. 什么时候 try-catch，什么时候 throws？
 
 * **能在当前层修复/降级 → try-catch**
 
@@ -1079,10 +1080,36 @@ public User getUser(Long id) {
 
     * Service 抛 UserNotFoundException → Controller 不管，全局异常处理器转成 JSON。
 
----
+     
 
-#### 4. 总结口诀
 
-* **能修复 → try-catch**
-* **不能修复，上层能决策 → throws**
-* **没人能修复 → RuntimeException（交给全局异常处理器）**
+
+
+
+## 9. 返回异常response body structure
+
+![img.png](img/Error%20Response%20Body%20Structure.png)
+
+### 1. 创建自定义error structure步骤
+
+1. 创建ErrorDetail class在额外的Exception folder中，包括timestamp,message, details, status等等
+```jave
+public class ErrorDetails{
+    private LocalDate timestamp;
+    private String message;
+    private String details;
+    //getter, setter, constructor等
+
+```
+
+2. override 默认的ResponseEntityExceptionHandler
+```java
+@ControllerAdvice 
+public class customizedExceptionHandler extends ResponseEntityExceptionHandlder{
+    @ExceptionHandler(Exception.class)
+    public final ResponsEntity<Object> handleException(Exception ex, webRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(LocalDate.now(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity(errorDetails, httpStatus.INTERNAL_SERVER_ERROR);//return 500 internal error 
+    }
+}
+```

@@ -1,11 +1,11 @@
 package com.example.rest_web_service.user;
 
+import com.example.rest_web_service.exception.userNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,6 +23,10 @@ public class userResource {
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable Integer id) {
+        User user = userDaoService.findUserById(id);
+        if(user == null){
+            throw new userNotFoundException("user"+id+" not found");
+        }
         return userDaoService.findUserById(id);
     }
 
