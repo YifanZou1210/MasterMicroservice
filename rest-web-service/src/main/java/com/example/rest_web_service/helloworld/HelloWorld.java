@@ -25,4 +25,5 @@ public class HelloWorld {
         // @PathVariable自动从url path中获取variable传入controller方法中作为参数处理
         return new HelloWorldBean(name).toString();
     }
+    
 }

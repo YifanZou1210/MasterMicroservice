@@ -1,7 +1,9 @@
 package com.example.rest_web_service.user;
 
-import com.example.rest_web_service.exception.userNotFoundException;
+import com.example.rest_web_service.exception.UserNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -9,10 +11,10 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-public class userResource {
+public class userController {
     private final userDaoService userDaoService;
 
-    public userResource(userDaoService userDaoService) {
+    public userController(userDaoService userDaoService) {
         this.userDaoService = userDaoService;
     }
 
@@ -25,13 +27,13 @@ public class userResource {
     public User getUser(@PathVariable Integer id) {
         User user = userDaoService.findUserById(id);
         if(user == null){
-            throw new userNotFoundException("user"+id+" not found");
+            throw new UserNotFoundException("user"+id+" not found");
         }
         return userDaoService.findUserById(id);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         /**
          * 前端传入数据user JSON如下
          * {
@@ -49,5 +51,11 @@ public class userResource {
         // body()在bodyBuilder上调用，把savedUser序列化为JSON放入response body中
         // 一般返回的是一个ResponseEntity<T>包含headers,status, body
         return ResponseEntity.created(uri).body(savedUser);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public User deleteUser(@PathVariable Integer id) {
+        if(id == null) throw new UserNotFoundException("id"+id+" not found");
+        return userDaoService.deleteUserById(id);
     }
 }

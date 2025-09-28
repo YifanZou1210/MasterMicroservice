@@ -1,6 +1,8 @@
 package com.example.rest_web_service.user;
 
+import com.example.rest_web_service.exception.UserNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,5 +44,11 @@ public class userDaoService {
         user.setId((++usercnt));//这里是共享id，无论从哪个service或者url加入新的user都不会打乱index
         users.add(user);
         return user;
+    }
+    public User deleteUserById(@PathVariable Integer id){
+        // DB和该模拟DB的最佳实践都是remove specific user后不会影响其他user id，不会导致更新重置
+        User findedUser = findUserById(id);
+        users.remove(findedUser);
+        return findedUser;
     }
 }

@@ -1,10 +1,13 @@
 package com.example.rest_web_service.user;
-
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class User {
     private Integer id;
+    @Size(min = 2,message = "name should have atleast 2 characters")
     private String name;
+    @Past(message = "BirthDate should be past") // 必须是过去日期
     private LocalDate birthdate;
 
     public User(Integer id, String name, LocalDate birthdate) {
