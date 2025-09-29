@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/rest-web-service/pom.xml" />
         <option value="$PROJECT_DIR$/limits-service/pom.xml" />
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/currency-exchange-service/pom.xml" />
       </list>
     </option>
   </component>
