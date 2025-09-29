@@ -3,6 +3,11 @@ spring:
     name: limits-service
   config:
     import: optional:configserver:http://localhost:8081
+  cloud:
+    config:
+      profile: qa
+  profiles:
+    active: qa
 limits-service:
   minimum: 2
   maximum: 100
