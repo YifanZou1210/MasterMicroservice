@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="currency-exchange-service" name="currency-exchange-service" framework="JPA" ormUnit="currency-exchange-service:currency-exchange-service" defaultDataSourceId="51031323-e993-4495-b76b-556cf4f3024b" />
+    </persistence-units>
+  </component>
+</project>
