@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="currency-conversion-service" />
+        <module name="hello-world-java" />
         <module name="rest-web-service" />
         <module name="api-gateway" />
         <module name="currency-exchange-service" />
@@ -25,6 +26,7 @@
       <module name="config-server" options="-parameters" />
       <module name="currency-conversion-service" options="-parameters" />
       <module name="currency-exchange-service" options="-parameters" />
+      <module name="hello-world-java" options="-parameters" />
       <module name="limits-service" options="-parameters" />
       <module name="master" options="-parameters" />
       <module name="naming-server" options="-parameters" />
