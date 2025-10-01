@@ -11,6 +11,7 @@
         <module name="currency-conversion-service" />
         <module name="limits-service" />
         <module name="rest-web-service" />
+        <module name="naming-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +25,7 @@
       <module name="currency-exchange-service" options="-parameters" />
       <module name="limits-service" options="-parameters" />
       <module name="master" options="-parameters" />
+      <module name="naming-server" options="-parameters" />
       <module name="rest-web-service" options="-parameters" />
     </option>
   </component>
